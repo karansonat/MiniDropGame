@@ -6,7 +6,7 @@ public class GameController : MonoSingleton<GameController>
 {
 
     private Level _level;
-    private Tile _selectedTile;
+    public Tile _selectedTile;
 
 	void Start () {
         _level = new Level();

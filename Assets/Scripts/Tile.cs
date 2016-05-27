@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.EventSystems;
 //Holds data about tile layers.
 public class TileLayer
@@ -29,9 +31,6 @@ public class Tile : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SelectTile();
-            //TempCode
-            AddLayer(new TileLayer {LayerTag = "Buildings", Layer = "level2_buildings"});
-            UpdateTileVisual();
         } 
     }
 
@@ -64,8 +63,23 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void AddLayer(TileLayer tileLayer)
+    public void AddLayer(string name)
     {
+        var parsedString = name.Split('_');
+        var tileLayer = new TileLayer
+        {
+            Layer = name,
+            LayerTag = parsedString[0],
+            LayerLevel = int.Parse(parsedString[1])
+        };
+        for (var i = layers.Count - 1; i >= 0; i--)
+        {
+            if (layers[i].LayerTag == tileLayer.LayerTag)
+            {
+                layers.RemoveAt(i);
+            }
+        }
+            
         layers.Add(tileLayer);
     }
 

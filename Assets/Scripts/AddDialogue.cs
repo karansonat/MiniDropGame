@@ -48,6 +48,15 @@ public class AddDialogue : MonoBehaviour
         _step3.SetActive(false);
     }
 
+    public void AddLayerToTile(GameObject go)
+    {
+        var name = go.name;
+        var tile = GameController.Instance._selectedTile;
+        if (!tile){Debug.LogWarning("Select tile first.");}
+        tile.AddLayer(name);
+        tile.UpdateTileVisual();
+    }
+
     public void ToogleMenu()
     {
         if (_step2.activeSelf)
