@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelConfig : MonoBehaviour
+//This class responsible for initial works on Level Creation.
+public class LevelConfig : MonoSingleton<LevelConfig>
 {
     [Header("Level Config")]
     public int row;
@@ -10,17 +11,12 @@ public class LevelConfig : MonoBehaviour
     [Header("Prefabs")]
     public GameObject Tile;
 
-	// Use this for initialization
-	void Start () {
-	    InitLevel();
-	}
-	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-    private void InitLevel()
+    public void InitLevel()
     {
         CreateTerrain();
     }
@@ -30,7 +26,6 @@ public class LevelConfig : MonoBehaviour
         var levelContainer = GameObject.Find("Level");
         //Find middle point of the board.
         var tileWidth = Tile.GetComponent<Renderer>().bounds.size.x;
-        Debug.Log(tileWidth);
         var topLeftCornerPos = new Vector3(-(tileWidth * col / 2), 0, (tileWidth * row / 2));
 
         for (var r = 0; r < row; r++)
@@ -42,6 +37,8 @@ public class LevelConfig : MonoBehaviour
                 var tileComp = tile.GetComponent<Tile>();
                 tileComp._row = r;
                 tileComp._col = c;
+                //Add it to level tiles.
+                GameController.Instance.GetActiveLevel().tiles.Add(tileComp);
                 tile.transform.SetParent(levelContainer.transform);
                 //Set tile's position.
                 tile.transform.localPosition = new Vector3(topLeftCornerPos.x + (c * tileWidth), 0, topLeftCornerPos.z + (r * -tileWidth));

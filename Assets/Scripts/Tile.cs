@@ -2,6 +2,12 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
+public class TileLayer
+{
+    public string LayerTag;
+    
+}
+
 public class Tile : MonoBehaviour
 {
     public int _row;
@@ -14,11 +20,6 @@ public class Tile : MonoBehaviour
         _isHighlighted = false;
 
     }
-
-    // Use this for initialization
-    void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,10 +28,15 @@ public class Tile : MonoBehaviour
     
     void OnMouseEnter()
     {
-        Debug.Log("Tile : " + gameObject.name);
+        //Highlight Tile 
     }
 
     void OnMouseExit()
+    {
+        //Clear Highlight
+    }
+
+    public void UpdateTileVisual()
     {
         
     }
