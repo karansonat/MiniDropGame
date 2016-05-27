@@ -4,13 +4,23 @@ timeCreated: 1464356267
 licenseType: Pro
 TrueTypeFontImporter:
   serializedVersion: 3
-  fontSize: 16
-  forceTextureCase: -2
+  fontSize: 120
+  forceTextureCase: -1
   characterSpacing: 1
   characterPadding: 0
   includeFontData: 1
   fontNames: []
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 12e5a230998290d468cd2927e18eca73, type: 3}
+  - {fileID: 12800000, guid: a088eb5360197f848bcce4483d706bef, type: 3}
+  - {fileID: 12800000, guid: fa32b6f378bb61f4fab4891e24fb9e63, type: 3}
+  - {fileID: 12800000, guid: 16ea20b40fe5bb846be382147c7b9236, type: 3}
+  - {fileID: 12800000, guid: 933b1d854d89afa42a261682f17ce6aa, type: 3}
+  - {fileID: 12800000, guid: 90db3307c97013146b01aa0dce7e873b, type: 3}
+  - {fileID: 12800000, guid: 7037d469ec1bb154a931ceda5d048ba7, type: 3}
+  - {fileID: 12800000, guid: 3af7c81d19acdb542a86267cc4bb8e5a, type: 3}
+  - {fileID: 12800000, guid: 5f894e9efe4144842b161c57347d46dd, type: 3}
+  - {fileID: 12800000, guid: 864df4cef5cc2ae4a9678842fce2007e, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
