@@ -24,6 +24,10 @@ public class GameController : MonoSingleton<GameController>
 
     public void SetSelectedTile(Tile tile)
     {
+        if (_selectedTile)
+        {
+            _selectedTile.DeselectTile();
+        }
         _selectedTile = tile;
     }
 }

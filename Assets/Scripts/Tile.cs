@@ -6,6 +6,7 @@ public class TileLayer
 {
     public string LayerTag;
     public string Layer;
+    public int LayerLevel;
 }
 //The class that manage tile operations.
 public class Tile : MonoBehaviour
@@ -14,25 +15,29 @@ public class Tile : MonoBehaviour
     public int _col;
     public List<TileLayer>  layers = new List<TileLayer>();
     
-    private bool _isHighlighted;
+    private bool _isSelected;
 
     public void Init()
     {
-        _isHighlighted = false;
+        _isSelected = false;
     }
 	
-    void OnMouseEnter()
+    void OnMouseOver()
     {
-        //Highlight Tile
+        if (UIHoverListener.Instance.isUIOverride) return;
+        //TODO(sonat): Highlight Tile
         if (Input.GetMouseButtonDown(0))
         {
-            GameController.Instance.SetSelectedTile(this);
+            SelectTile();
+            //TempCode
+            AddLayer(new TileLayer {LayerTag = "Buildings", Layer = "level2_buildings"});
+            UpdateTileVisual();
         } 
     }
 
     void OnMouseExit()
     {
-        //Clear Highlight
+        //TODO(sonat): Clear Highlight
     }
 
     public void UpdateTileVisual()
@@ -48,11 +53,31 @@ public class Tile : MonoBehaviour
             var layerObj = ContentLoader.Instance.GetGameObjectByPrefabName(tileLayer.Layer);
             layerObj.transform.SetParent(transform, false);
             //TODO(sonat): Set child layers positions here.
+            switch (tileLayer.LayerTag)
+            {
+                case "Tree":
+                    break;
+                case "Buildings":
+                    layerObj.transform.localPosition = new Vector3(0, 0.1001f, 0);
+                    break;
+            }
         }
     }
 
-    public void AddLayer(string layerTag, string layer)
+    public void AddLayer(TileLayer tileLayer)
     {
-        layers.Add(new TileLayer {LayerTag = layerTag, Layer = layer});
+        layers.Add(tileLayer);
+    }
+
+    public void SelectTile()
+    {
+        GameController.Instance.SetSelectedTile(this);
+        _isSelected = true;
+        UIController.Instance.ShowTileMenu(this);
+    }
+
+    public void DeselectTile()
+    {
+        _isSelected = false;
     }
 }

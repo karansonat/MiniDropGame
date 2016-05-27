@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIController : MonoSingleton<UIController> {
+public class UIController : MonoSingleton<UIController>
+{
+    public GameObject TileOptions;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void ShowTileMenu(Tile tile)
+    {
+        
+    }
 }
