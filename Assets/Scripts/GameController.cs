@@ -6,14 +6,13 @@ public class GameController : MonoSingleton<GameController>
 {
 
     private Level _level;
+    private Tile _selectedTile;
 
-	// Use this for initialization
 	void Start () {
         _level = new Level();
 	    LevelConfig.Instance.InitLevel();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
@@ -21,5 +20,10 @@ public class GameController : MonoSingleton<GameController>
     public Level GetActiveLevel()
     {
         return _level;
+    }
+
+    public void SetSelectedTile(Tile tile)
+    {
+        _selectedTile = tile;
     }
 }

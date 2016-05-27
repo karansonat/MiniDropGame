@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIController : MonoBehaviour {
+public class UIController : MonoSingleton<UIController> {
 
 	// Use this for initialization
 	void Start () {

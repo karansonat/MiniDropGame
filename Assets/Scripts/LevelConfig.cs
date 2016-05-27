@@ -11,7 +11,6 @@ public class LevelConfig : MonoSingleton<LevelConfig>
     [Header("Prefabs")]
     public GameObject Tile;
 
-	// Update is called once per frame
 	void Update () {
 	
 	}
@@ -24,7 +23,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
     private void CreateTerrain()
     {
         var levelContainer = GameObject.Find("Level");
-        //Find middle point of the board.
+         //Find middle point of the board.
         var tileWidth = Tile.GetComponent<Renderer>().bounds.size.x;
         var topLeftCornerPos = new Vector3(-(tileWidth * col / 2), 0, (tileWidth * row / 2));
 
