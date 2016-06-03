@@ -674,7 +674,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11477854}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11462050}
+        m_MethodName: AddLayerToTile
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 117892, guid: 23cd67556dc0195459b85f00c899df3f,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11442970
@@ -733,7 +745,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11477810}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11462050}
+        m_MethodName: AddLayerToTile
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 181622, guid: 5e665dcbc8b60df4fa3a268ee9f87753,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11456192
@@ -774,7 +798,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11429086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11462050}
+        m_MethodName: AddLayerToTile
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 154218, guid: 17b28257356bfe247be58a7330f92fe0,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11462050
