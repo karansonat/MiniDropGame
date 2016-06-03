@@ -12,7 +12,7 @@ public class HUDController : MonoBehaviour
     private Text _treeIncome;
 
     // Use this for initialization
-    void Start () {
+    public void Init () {
         _currentPupulation = transform.FindChild("Population/Current").GetComponent<Text>();
         _currentWater = transform.FindChild("InfoPanel/Water/Current").GetComponent<Text>();
         _waterIncome = transform.FindChild("InfoPanel/Water/Income").GetComponent<Text>();
@@ -27,7 +27,6 @@ public class HUDController : MonoBehaviour
         var level = LevelConfig.Instance.GetActiveLevel();
         //Population
         var population = level.tiles.Sum(tile => tile.CalculateTilePopulation());
-        Debug.Log(population);
         _currentPupulation.text = population.ToString();
         //Current water
         _currentWater.text = level.CurrentWater.ToString();

@@ -43,6 +43,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
     {
         InitLevelData();
         CreateTerrain();
+        UIController.Instance.HUDControllerObj.Init();
     }
 
     private void CreateTerrain()
@@ -101,6 +102,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
             case "Buildings":
                 _level.CurrentWater -= _outcomes[key];
                 //_level.Population += _incomes[key];
+                _level.Population += GameController.Instance._selectedTile.CalculateTilePopulation();
                 break;
         }
 
