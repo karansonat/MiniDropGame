@@ -83,6 +83,7 @@ public class Tile : MonoBehaviour
         {
             if (layers[i].LayerTag == tileLayer.LayerTag)
             {
+                LevelConfig.Instance.RemoveLayerDataFromLevel(layers[i].LayerTag, layers[i].LayerLevel, true);
                 layers.RemoveAt(i);
             }
         }
@@ -98,14 +99,13 @@ public class Tile : MonoBehaviour
             }
         }
 
-        LevelConfig.Instance.ApplyLayerDataToLevel(tileLayer.LayerTag, tileLayer.LayerLevel);
+        LevelConfig.Instance.AddLayerDataToLevel(tileLayer.LayerTag, tileLayer.LayerLevel);
     }
 
     public void SelectTile()
     {
         GameController.Instance.SetSelectedTile(this);
         _isSelected = true;
-        UIController.Instance.ShowTileMenu(this);
     }
 
     public void DeselectTile()

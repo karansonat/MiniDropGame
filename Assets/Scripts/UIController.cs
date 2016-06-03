@@ -3,10 +3,12 @@ using System.Collections;
 
 public class UIController : MonoSingleton<UIController>
 {
-    public GameObject TileOptions;
+    public AddDialogue AddDialogueObj;
+    public HUDController HUDControllerObj;
 
-    public void ShowTileMenu(Tile tile)
+    void Awake()
     {
-        
+        AddDialogueObj = transform.FindChild("AddDialogue").GetComponent<AddDialogue>();
+        HUDControllerObj = transform.FindChild("HUD-TOP").GetComponent<HUDController>();
     }
 }

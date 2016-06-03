@@ -9,6 +9,8 @@ public class Level
     public int CurrentWater;
     public int DailyWaterIncome;
     public int DailyWaterOutcome;
+    public float WaterConsumptionOfAPerson;
+    public int DayCount;
 
     public List<Tile> tiles = new List<Tile>();
 
