@@ -4,8 +4,6 @@ using System.Collections;
 //Main game control class.
 public class GameController : MonoSingleton<GameController>
 {
-
-    private Level _level;
     private Material _grassMaterial;
     private Material _higlightedGrassMaterial;
     private GameObject _cameraPivot;
@@ -16,7 +14,7 @@ public class GameController : MonoSingleton<GameController>
     public Tile _selectedTile;
 
 	void Start () {
-        _level = new Level();
+        
 	    LevelConfig.Instance.InitLevel();
         _cameraPivot = GameObject.Find("CameraPivot");
         _grassMaterial = Resources.Load("Materials/Grass") as Material;
@@ -27,12 +25,7 @@ public class GameController : MonoSingleton<GameController>
 	{
 	    TurnCamera();
 	}
-
-    public Level GetActiveLevel()
-    {
-        return _level;
-    }
-
+    
     public void SetSelectedTile(Tile tile)
     {
         if (_selectedTile)
