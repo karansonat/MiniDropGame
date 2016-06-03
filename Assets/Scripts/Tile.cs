@@ -73,6 +73,8 @@ public class Tile : MonoBehaviour
 
     public void AddLayer(string name)
     {
+        var level = LevelConfig.Instance.GetActiveLevel();
+
         var parsedString = name.Split('_');
         var tileLayer = new TileLayer
         {
@@ -80,6 +82,8 @@ public class Tile : MonoBehaviour
             LayerTag = parsedString[0],
             LayerLevel = int.Parse(parsedString[1])
         };
+
+        if(level.CurrentWater - LevelConfig.Instance._outcomes[tileLayer.Layer] < 0) return;
 
         //Player can not add buildings layer if tile has tree layer and not have Buildings layer.
         if (tileLayer.LayerTag == "Buildings" && layers.Count == 1 && layers.Any(layer => layer.LayerTag == "Tree")) return;
