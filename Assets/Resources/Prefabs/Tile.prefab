@@ -89,8 +89,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5152f0dac732e4f9e5e39227df3912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _row: 0
-  _col: 0
+  row: 0
+  col: 0
+  layers: []
+  substructureLevel: 0
+  buildingTreeLevel: 0
+  bonusRate: 0
+  tilePopulation: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
