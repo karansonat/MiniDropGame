@@ -15,7 +15,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
     //TODO(sonat): Make this one private.
     public Level _level;
 
-    private readonly Dictionary<string, int> _outcomes = new Dictionary<string, int>
+    public readonly Dictionary<string, int> _outcomes = new Dictionary<string, int>
     {
         {"Tree_1", 10},
         {"Tree_2", 20},
@@ -25,7 +25,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
         {"Buildings_3", 60}
     };
 
-    private readonly Dictionary<string, int> _incomes = new Dictionary<string, int>
+    public readonly Dictionary<string, int> _incomes = new Dictionary<string, int>
     {
         {"Tree_1", 5},
         {"Tree_2", 15},
@@ -59,8 +59,8 @@ public class LevelConfig : MonoSingleton<LevelConfig>
                 var tile = Instantiate(Tile);
                 tile.name = "Tile {" + r + " , " + c + "}";
                 var tileComp = tile.GetComponent<Tile>();
-                tileComp._row = r;
-                tileComp._col = c;
+                tileComp.row = r;
+                tileComp.col = c;
                 //Add it to level tiles.
                 _level.tiles.Add(tileComp);
                 tile.transform.SetParent(levelContainer.transform);
@@ -100,7 +100,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
                 break;
             case "Buildings":
                 _level.CurrentWater -= _outcomes[key];
-                _level.Population += _incomes[key];
+                //_level.Population += _incomes[key];
                 break;
         }
 
@@ -108,7 +108,7 @@ public class LevelConfig : MonoSingleton<LevelConfig>
         UIController.Instance.HUDControllerObj.UpdateHUD();
     }
     
-    public void RemoveLayerDataFromLevel(string LayerTag, int LayerLevel, bool upgrade = false)
+    public void RemoveLayerDataFromLevel(string LayerTag, int LayerLevel)
     {
         var key = LayerTag + "_" + LayerLevel;
         switch (LayerTag)
@@ -117,7 +117,6 @@ public class LevelConfig : MonoSingleton<LevelConfig>
                 _level.DailyWaterIncome -= _incomes[key];
                 break;
             case "Buildings":
-                if (upgrade) return;
                 _level.Population -= _incomes[key];
                 break;
         }

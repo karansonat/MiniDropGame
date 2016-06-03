@@ -13,5 +13,4 @@ public class Level
     public int DayCount;
 
     public List<Tile> tiles = new List<Tile>();
-
 }

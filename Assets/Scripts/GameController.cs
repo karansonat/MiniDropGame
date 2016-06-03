@@ -24,13 +24,31 @@ public class GameController : MonoSingleton<GameController>
 	void FixedUpdate ()
 	{
 	    TurnCamera();
-	}
+        //Clear selection when user clicked outside to map.
+	    if (Input.GetMouseButtonDown(0))
+	    {
+            if(UIHoverListener.Instance.isUIOverride) return;
+	        if (UIController.Instance.AddDialogueObj.isActive)
+	        {
+                UIController.Instance.AddDialogueObj.ToogleMenu();
+            }
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (!Physics.Raycast(ray, out hit))
+            {
+                if (_selectedTile)
+                {
+                    _selectedTile.DeselectTile();
+                }
+            }
+        }
+    }
     
     public void SetSelectedTile(Tile tile)
     {
         if (_selectedTile)
         {
-            UnHighlightTile();
             _selectedTile.DeselectTile();
         }
         _selectedTile = tile;
@@ -42,13 +60,22 @@ public class GameController : MonoSingleton<GameController>
         var materials = _selectedTile.gameObject.GetComponent<MeshRenderer>().materials;
         materials[materials.Length - 1] = _higlightedGrassMaterial;
         _selectedTile.gameObject.GetComponent<MeshRenderer>().materials = materials;
+        UIController.Instance.TileDescriptionObj.ShowPanel();
     }
 
-    private void UnHighlightTile()
+    public void UnHighlightTile()
     {
         var materials = _selectedTile.gameObject.GetComponent<MeshRenderer>().materials;
         materials[materials.Length - 1] = _grassMaterial;
         _selectedTile.gameObject.GetComponent<MeshRenderer>().materials = materials;
+        UIController.Instance.TileDescriptionObj.HidePanel();
+    }
+
+    public void EndDay()
+    {
+        var level = LevelConfig.Instance.GetActiveLevel();
+        level.CurrentWater += level.DailyWaterIncome - level.DailyWaterOutcome;
+        UIController.Instance.HUDControllerObj.UpdateHUD();
     }
 
     private void TurnCamera()
@@ -64,23 +91,14 @@ public class GameController : MonoSingleton<GameController>
             var diff = Input.mousePosition.x - _mousePosOld.x;
             _cameraPivot.transform.Rotate(Vector3.up, CalculateTurnAngle(diff));
             _mousePosOld = Input.mousePosition;
-            /*
-            if (diff > 0)
-            {
-                _cameraPivot.transform.Rotate(Vector3.up, 3.0f);
-                _mousePosOld = Input.mousePosition;
-            }
-            else
-            {
-                _cameraPivot.transform.Rotate(Vector3.up, -3.0f);
-                _mousePosOld = Input.mousePosition;
-            }*/
         }
         if (Input.GetMouseButtonUp(1))
         {
             _mousePosOld = Vector3.zero;
         }
     }
+
+
 
     private float CalculateTurnAngle(float diff)
     {

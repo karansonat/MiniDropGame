@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
@@ -25,14 +26,16 @@ public class HUDController : MonoBehaviour
     {
         var level = LevelConfig.Instance.GetActiveLevel();
         //Population
-        _currentPupulation.text = level.Population.ToString();
+        var population = level.tiles.Sum(tile => tile.CalculateTilePopulation());
+        Debug.Log(population);
+        _currentPupulation.text = population.ToString();
         //Current water
         _currentWater.text = level.CurrentWater.ToString();
         //Calculated water income
-        _waterIncome.text = (level.DailyWaterIncome - level.DailyWaterOutcome).ToString();
+        _waterIncome.text = "+" + (level.DailyWaterIncome - level.DailyWaterOutcome) + " / Day";
         //Population consumption
-        _buildingOutcome.text = level.DailyWaterOutcome.ToString();
+        _buildingOutcome.text = "-" + level.DailyWaterOutcome + " / Day";
         //Water income from trees
-        _treeIncome.text = level.DailyWaterIncome.ToString();
+        _treeIncome.text = "+" + level.DailyWaterIncome + " / Day";
     }
 }

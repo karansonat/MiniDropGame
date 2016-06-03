@@ -7,6 +7,8 @@ public class AddDialogue : MonoBehaviour
     private GameObject _step2;
     private GameObject _step3;
 
+    public bool isActive;
+
 
 
     // Use this for initialization
@@ -61,11 +63,13 @@ public class AddDialogue : MonoBehaviour
     {
         if (_step2.activeSelf)
         {
+            isActive = false;
             HideStep2();
             HideStep3();
         }
         else
         {
+            isActive = true;
             ShowStep2();
         }
     }

@@ -15,9 +15,13 @@ public class TileLayer
 //The class that manage tile operations.
 public class Tile : MonoBehaviour
 {
-    public int _row;
-    public int _col;
+    public int row;
+    public int col;
     public List<TileLayer>  layers = new List<TileLayer>();
+    public int substructureLevel;
+    public int buildingTreeLevel;
+    public float bonusRate;
+    public int tilePopulation;
     
     private bool _isSelected;
 
@@ -53,7 +57,8 @@ public class Tile : MonoBehaviour
         {
             var layerObj = ContentLoader.Instance.GetGameObjectByPrefabName(tileLayer.Layer);
             layerObj.transform.SetParent(transform, false);
-            
+            layerObj.transform.localPosition = new Vector3(0, 0.1001f, 0);
+            /*
             switch (tileLayer.LayerTag)
             {
                 case "Tree":
@@ -62,7 +67,7 @@ public class Tile : MonoBehaviour
                 case "Buildings":
                     layerObj.transform.localPosition = new Vector3(0, 0.1001f, 0);
                     break;
-            }
+            }*/
         }
     }
 
@@ -76,14 +81,15 @@ public class Tile : MonoBehaviour
             LayerLevel = int.Parse(parsedString[1])
         };
 
-        //Player can not add buildings layer if tile has tree layer.
-        if (layers.Any(layer => layer.LayerTag == "Tree") && tileLayer.LayerTag == "Buildings") return;
+        //Player can not add buildings layer if tile has tree layer and not have Buildings layer.
+        if (layers.Any(layer => layer.LayerTag == "Tree") && tileLayer.LayerTag != "Buildings") return;
 
         for (var i = layers.Count - 1; i >= 0; i--)
         {
             if (layers[i].LayerTag == tileLayer.LayerTag)
             {
-                LevelConfig.Instance.RemoveLayerDataFromLevel(layers[i].LayerTag, layers[i].LayerLevel, true);
+                if (layers[i].LayerLevel >= tileLayer.LayerLevel) return;
+                LevelConfig.Instance.RemoveLayerDataFromLevel(layers[i].LayerTag, layers[i].LayerLevel);
                 layers.RemoveAt(i);
             }
         }
@@ -96,6 +102,8 @@ public class Tile : MonoBehaviour
             foreach (var layer in layers.Where(layer => layer.LayerTag == "Tree"))
             {
                 layer.Layer = "BuildingsTree" + "_" + layer.LayerLevel;
+                buildingTreeLevel = layer.LayerLevel;
+                CalculateBonusRate();
             }
         }
 
@@ -111,5 +119,42 @@ public class Tile : MonoBehaviour
     public void DeselectTile()
     {
         _isSelected = false;
+        GameController.Instance.UnHighlightTile();
+        GameController.Instance._selectedTile = null;
+    }
+
+    public void UpgradeTileSubstructureLevel()
+    {
+        Debug.Log(name + "Upgraded.");
+        substructureLevel++;
+        CalculateBonusRate();
+        UIController.Instance.HUDControllerObj.UpdateHUD();
+    }
+
+    public void CalculateBonusRate()
+    {
+        bonusRate = ((substructureLevel * 10) + (buildingTreeLevel * 10)) / 100.0f;
+        Debug.Log(bonusRate);
+    }
+
+    public int CalculateTilePopulation()
+    {
+        tilePopulation = 0;
+        if (layers.All(layer => layer.LayerTag != "Buildings"))
+        {
+            tilePopulation = 0;
+        }
+        else
+        {
+            foreach (var tileLayer in layers)
+            {
+                if (tileLayer.LayerTag == "Buildings")
+                {
+                    var normalPopulation = LevelConfig.Instance._incomes[tileLayer.Layer];
+                    tilePopulation += normalPopulation + (int)(normalPopulation*bonusRate);
+                }
+            }
+        }
+        return tilePopulation;
     }
 }
