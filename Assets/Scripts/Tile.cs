@@ -82,7 +82,7 @@ public class Tile : MonoBehaviour
         };
 
         //Player can not add buildings layer if tile has tree layer and not have Buildings layer.
-        if (layers.Any(layer => layer.LayerTag == "Tree") && tileLayer.LayerTag != "Buildings") return;
+        if (tileLayer.LayerTag == "Buildings" && layers.Count == 1 && layers.Any(layer => layer.LayerTag == "Tree")) return;
 
         for (var i = layers.Count - 1; i >= 0; i--)
         {
