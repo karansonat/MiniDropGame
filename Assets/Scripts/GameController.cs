@@ -74,8 +74,10 @@ public class GameController : MonoSingleton<GameController>
     public void EndDay()
     {
         var level = LevelConfig.Instance.GetActiveLevel();
+        level.DayCount++;
         level.CurrentWater += level.DailyWaterIncome - level.DailyWaterOutcome;
         UIController.Instance.HUDControllerObj.UpdateHUD();
+        UIController.Instance.EndDayScreemObj.ShowEndDayReport();
     }
 
     private void TurnCamera()
